@@ -1,0 +1,14 @@
+api.theoriginals.io
+banners.theoriginals.io
+dashboard.theoriginals.io
+demo-api.theoriginals.io
+demo-socket.theoriginals.io
+demo.theoriginals.io
+mt-link.theoriginals.io
+offers.theoriginals.io
+postback.theoriginals.io
+smart.theoriginals.io
+socket.theoriginals.io
+static.theoriginals.io
+theoriginals.io
+www.theoriginals.io

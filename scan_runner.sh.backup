@@ -1,0 +1,111 @@
+#!/bin/bash
+# scan_runner.sh - Bug Hunting Toolkit Runner
+
+# Set working directory to script location
+cd "$(dirname "$0")"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+print_banner() {
+    echo -e "${GREEN}"
+    echo "╔══════════════════════════════════════╗"
+    echo "║      BUG HUNTING TOOLKIT v1.0        ║"
+    echo "║      Security Researcher Tools       ║"
+    echo "╚══════════════════════════════════════╝"
+    echo -e "${NC}"
+}
+
+check_tools() {
+    echo -e "${YELLOW}[*] Checking tools...${NC}"
+    
+    required_tools=("assetfinder" "subfinder" "httpx" "nuclei")
+    missing=0
+    
+    for tool in "${required_tools[@]}"; do
+        if [ -f "./tools/$tool" ]; then
+            echo -e "  ${GREEN}✅ $tool${NC}"
+        else
+            echo -e "  ${RED}❌ $tool (missing)${NC}"
+            missing=1
+        fi
+    done
+    
+    if [ $missing -eq 1 ]; then
+        echo -e "${RED}[!] Some tools are missing. Run install first.${NC}"
+        echo -e "${YELLOW}[*] Run: $0 <domain> install${NC}"
+        exit 1
+    fi
+}
+
+main() {
+    DOMAIN=$1
+    MODE=$2
+    
+    print_banner
+    
+    if [ -z "$DOMAIN" ]; then
+        echo -e "${YELLOW}Usage: $0 <domain> [mode]${NC}"
+        echo ""
+        echo "Modes available:"
+        echo "  recon    - Passive reconnaissance"
+        echo "  scan     - Full vulnerability scan"
+        echo "  quick    - Quick security assessment
+  full     - Full pipeline (7 tools)"
+        echo "  install  - Install all tools"
+        echo ""
+        echo "Example: $0 example.com recon"
+        exit 1
+    fi
+    
+    echo -e "${YELLOW}[*] Target:${NC} $DOMAIN"
+    echo -e "${YELLOW}[*] Mode:${NC} ${MODE:-auto}"
+    echo ""
+    
+    # Check tools for non-install modes
+    if [ "$MODE" != "install" ]; then
+        check_tools
+        echo ""
+    fi
+    
+    case $MODE in
+        "recon")
+            echo -e "${GREEN}[+] Starting reconnaissance...${NC}"
+            ./scripts/passive_recon.sh "$DOMAIN"
+            ;;
+        "scan")
+            echo -e "${GREEN}[+] Starting full scan...${NC}"
+            ./scripts/full_scan.sh "$DOMAIN"
+            ;;
+        "quick")
+            echo -e "${GREEN}[+] Starting quick scan...${NC}"
+            ./scripts/quick_scan.sh "$DOMAIN"
+            ;;
+        "install")
+            echo -e "${GREEN}[+] Installing/Updating tools...${NC}"
+            ./scripts/install_all.sh
+            ;;
+        *)
+            echo -e "${GREEN}[+] Starting auto mode (recon only)...${NC}"
+            ./scripts/passive_recon.sh "$DOMAIN"
+            ;;
+    esac
+    
+    if [ "$MODE" != "install" ]; then
+        echo ""
+        echo -e "${GREEN}[+] Scan completed!${NC}"
+        echo -e "${YELLOW}[*] Check results in:${NC}"
+        [ -d "targets/recon" ] && echo "    - targets/recon/     : $(ls targets/recon/*.txt 2>/dev/null | wc -l) recon files"
+        [ -d "targets/results" ] && echo "    - targets/results/   : $(ls targets/results/*.txt 2>/dev/null | wc -l) result files"
+        [ -d "reports" ] && echo "    - reports/           : $(ls reports/*.md reports/*.txt 2>/dev/null | wc -l) reports"
+    fi
+}
+
+main "$@"
+
+        "full")
+            echo -e "${GREEN}[+] Starting FULL pipeline (7 tools)...${NC}"
+            ./full_pipeline.sh "$DOMAIN"
+            ;;
