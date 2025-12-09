@@ -23,3 +23,12 @@ A comprehensive bug hunting automation pipeline optimized for Android devices ru
 | ffuf | Directory fuzzing | ✅ |
 
 ## ⚡ Quick Start
+
+
+bug-hunting-android/
+├── scan_runner.sh          # Main controller
+├── bug_hunter.py          # Python pipeline
+├── scripts/               # All automation scripts
+├── templates/             # Configuration templates
+├── wordlists/            # Wordlists
+└── docs/                 # Documentation
