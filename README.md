@@ -22,8 +22,6 @@ A comprehensive bug hunting automation pipeline optimized for Android devices ru
 | dalfox | XSS scanning | ✅ |
 | ffuf | Directory fuzzing | ✅ |
 
-## ⚡ Quick Start
-
 
 
 📊 Sample Output
@@ -42,3 +40,6 @@ A comprehensive bug hunting automation pipeline optimized for Android devices ru
    • Crawled URLs: 527
    • Critical findings: 2
    • XSS findings: 3
+
+
+## ⚡ Quick Start
