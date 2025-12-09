@@ -25,10 +25,20 @@ A comprehensive bug hunting automation pipeline optimized for Android devices ru
 ## ⚡ Quick Start
 
 
-bug-hunting-android/
-├── scan_runner.sh          # Main controller
-├── bug_hunter.py          # Python pipeline
-├── scripts/               # All automation scripts
-├── templates/             # Configuration templates
-├── wordlists/            # Wordlists
-└── docs/                 # Documentation
+
+📊 Sample Output
+
+╔══════════════════════════════════════╗
+║      BUG HUNTING TOOLKIT v1.0        ║
+║      Security Researcher Tools       ║
+╚══════════════════════════════════════╝
+
+[*] Target: example.com
+[*] Mode: full
+
+📊 RESULTS SUMMARY:
+   • Subdomains found: 42
+   • Live hosts: 18
+   • Crawled URLs: 527
+   • Critical findings: 2
+   • XSS findings: 3
